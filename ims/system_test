@@ -1,0 +1,61 @@
+import robotframework
+
+
+def test_add_product():
+    # Connect to the IMS application
+    driver = robotframework.connect("http://localhost:8000/")
+
+    # Enter product details
+    product_name = "Laptop"
+    product_description = "Apple MacBook Pro"
+    product_price = 1299.99
+    product_quantity = 10
+    product_supplier = "Apple"
+
+    # Fill product name input field
+    driver.input_text("product_name", product_name)
+
+    # Fill product description input field
+    driver.input_text("product_description", product_description)
+
+    # Fill product price input field
+    driver.input_text("product_price", str(product_price))
+
+    # Fill product quantity input field
+    driver.input_text("product_quantity", str(product_quantity))
+
+    # Select product supplier from dropdown
+    driver.select_from_list("product_supplier", product_supplier)
+
+    # Submit the product form
+    driver.click_button("submit_product")
+
+    # Verify successful product addition
+    success_message = driver.get_text("success_message")
+    assert success_message == "Product added successfully"
+
+
+def test_manage_suppliers():
+    # Connect to the IMS application
+    driver = robotframework.connect("http://localhost:8000/")
+
+    # Enter supplier details
+    supplier_name = "Acme Electronics"
+    supplier_contact = "support@acme.com"
+    supplier_address = "123 Main St., Anytown, CA 98765"
+
+    # Fill supplier name input field
+    driver.input_text("supplier_name", supplier_name)
+
+    # Fill supplier contact input field
+    driver.input_text("supplier_contact", supplier_contact)
+
+    # Fill supplier address input field
+    driver.input_text("supplier_address", supplier_address)
+
+    # Submit the supplier form
+    driver.click_button("submit_supplier")
+
+    # Verify successful supplier addition
+    success_message = driver.get_text("success_message")
+    assert success_message == "Supplier added successfully"
